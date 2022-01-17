@@ -1,7 +1,8 @@
-package com.example.auth.core.user.ui;
+package com.example.auth.user.ui;
 
-import com.example.auth.core.user.application.UserService;
-import com.example.auth.core.user.domain.User;
+import com.example.auth.user.application.UserService;
+import com.example.auth.user.domain.User;
+import com.example.auth.user.dto.UserRegistRequest;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

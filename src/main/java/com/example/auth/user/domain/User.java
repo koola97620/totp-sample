@@ -1,4 +1,4 @@
-package com.example.auth.core.user.domain;
+package com.example.auth.user.domain;
 
 import com.example.auth.config.security.RoleAuthority;
 import com.example.auth.config.security.TOTPUserDetails;
@@ -105,5 +105,14 @@ public class User implements TOTPUserDetails {
 
         this.otpSecretKey = otpSecretKey;
         return this;
+    }
+
+    @Override
+    public void setRole(RoleAuthority tempAuthentication) {
+        this.authorities.add(tempAuthentication);
+    }
+
+    public boolean hasSecretKey() {
+        return otpSecretKey != null;
     }
 }

@@ -1,6 +1,6 @@
-package com.example.auth.core.user.application;
+package com.example.auth.user.application;
 
-import com.example.auth.core.user.domain.User;
+import com.example.auth.user.domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +22,7 @@ class UserServiceTest {
         String password = "1234";
         User user = userService.register(username, password);
 
-        assertThat(passwordEncoder.matches(password,user.getPassword())).isTrue();
+        assertThat(passwordEncoder.matches(password, user.getPassword())).isTrue();
     }
 
 }

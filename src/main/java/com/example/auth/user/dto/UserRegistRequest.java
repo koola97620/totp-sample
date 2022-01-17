@@ -1,4 +1,4 @@
-package com.example.auth.core.user.ui;
+package com.example.auth.user.dto;
 
 public class UserRegistRequest {
     private String username;

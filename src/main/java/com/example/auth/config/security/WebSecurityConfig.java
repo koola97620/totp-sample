@@ -1,6 +1,6 @@
 package com.example.auth.config.security;
 
-import com.example.auth.core.user.application.UserService;
+import com.example.auth.user.application.UserService;
 import com.warrenstrange.googleauth.GoogleAuthenticator;
 import com.warrenstrange.googleauth.IGoogleAuthenticator;
 import org.springframework.context.annotation.Bean;
@@ -35,11 +35,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers(HttpMethod.GET,"/user/1").permitAll()
                     .antMatchers("/logout").permitAll()
                     .antMatchers(HttpMethod.GET, "/login").permitAll()
-                    .anyRequest().fullyAuthenticated()
+                .anyRequest().fullyAuthenticated()
                 .and()
-                    .formLogin().authenticationDetailsSource(new TOTPWebAuthenticationDetailsSource())
-                        .loginPage("/login").defaultSuccessUrl("/")
-                        .failureUrl("/login?error").failureHandler(new ExtensibleAuthenticationFailureHandler()).permitAll()
+                    .formLogin()//.authenticationDetailsSource(new TOTPWebAuthenticationDetailsSource())
+                        .loginPage("/login")//.defaultSuccessUrl("/")
+                            .successHandler(new LoginSuccesaHandler())
+                            .failureUrl("/login?error").failureHandler(new ExtensibleAuthenticationFailureHandler()).permitAll()
                 .and()
                     .logout()
                         .logoutSuccessUrl("/login?logout")

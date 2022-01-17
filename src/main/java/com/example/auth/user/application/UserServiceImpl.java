@@ -1,7 +1,7 @@
-package com.example.auth.core.user.application;
+package com.example.auth.user.application;
 
-import com.example.auth.core.user.domain.User;
-import com.example.auth.core.user.domain.UserRepository;
+import com.example.auth.user.domain.User;
+import com.example.auth.user.domain.UserRepository;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import com.warrenstrange.googleauth.IGoogleAuthenticator;
