@@ -4,39 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <title>OTP Login</title>
+    <script type="text/javascript" th:src="@{/js/qrious.min.js}"></script>
 </head>
-
 <body>
-<div>
-    <h3>Input OTP Number</h3>
-</div>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>-->
 
-<div th:if="${param.error}">
-    <span th:text="${param.error}"></span>
-</div>
-
-<div th:if="${qrInfo != null} and ${qrInfo.hasQrUrl()}">
-    </div>
-        <img th:src="${qrInfo != null} ? ${qrInfo.getQrUrl()} : null" />
     <div>
-</div>
+        <h3>Input OTP Number</h3>
+    </div>
 
-<div>
-    <form action="javascript:;" th:action="@{/otp-login}" method="post">
-        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-        <input type="hidden" name="username" th:value="${username}" />
-        <input type="hidden" name="qrUrl" th:value="${qrInfo.qrUrl}" />
-        <input type="hidden" name="secretKey" th:value="${qrInfo.secretKey}" />
+    <div th:if="${param.error}">
+        <span th:text="${param.error}"></span>
+    </div>
+
+    <div th:if="${qrInfo != null} and ${qrInfo.hasQrUrl()}">
         <div>
-            <div>
-                <input type="password" autocomplete="off" placeholder="TOTP Verification code" name="verificationCode" required style="padding: 5px;" />
-            </div>
-            <div>
-                <button class="btn green" type="submit">Log In</button>
-            </div>
+            <canvas id="qrcode"></canvas>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                var qrUrl = [[${qrInfo.getQrUrl()}]];
+                var qrCode = new QRious({element: document.getElementById("qrcode"), value: qrUrl});
+
+                /*]]>*/
+            </script>
         </div>
-    </form>
-</div>
+    <!--    </div>-->
+    <!--        <img th:src="${qrInfo != null} ? ${qrInfo.getQrUrl()} : null" />-->
+    <!--    <div>-->
+    </div>
+
+    <div>
+        <form action="javascript:;" th:action="@{/otp-login}" method="post">
+            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+            <input type="hidden" name="username" th:value="${username}" />
+            <input type="hidden" name="qrUrl" th:value="${qrInfo.qrUrl}" />
+            <input type="hidden" name="secretKey" th:value="${qrInfo.secretKey}" />
+            <div>
+                <div>
+                    <input type="password" autocomplete="off" placeholder="TOTP Verification code" name="verificationCode" required style="padding: 5px;" />
+                </div>
+                <div>
+                    <button class="btn green" type="submit">Log In</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 </body>
 
 </html>

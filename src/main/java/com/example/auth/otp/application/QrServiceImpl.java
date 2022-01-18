@@ -32,7 +32,19 @@ public class QrServiceImpl implements QrService {
         }
 
         GoogleAuthenticatorKey key = googleAuthenticator.createCredentials();
-        String qrUrl = createQRUrl(username, key);
+        //String qrUrl = createQRUrl(username, key);
+        StringBuilder sb = new StringBuilder();
+        String issuer = "iseduOtpTest";
+        String qrUrl =
+                sb.append("otpauth://totp/")
+                        .append(issuer)
+                        .append(":")
+                        .append(username)
+                        .append("?secret=")
+                        .append(key.getKey())
+                        .append("&issuer=")
+                        .append(issuer)
+                        .toString();
         return new QrInfo(qrUrl, key.getKey());
     }
 
