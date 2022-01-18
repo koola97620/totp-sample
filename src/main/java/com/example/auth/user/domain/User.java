@@ -1,9 +1,9 @@
 package com.example.auth.user.domain;
 
 import com.example.auth.config.security.RoleAuthority;
-import com.example.auth.config.security.TOTPUserDetails;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -12,7 +12,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class User implements TOTPUserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -80,7 +80,6 @@ public class User implements TOTPUserDetails {
         return true;
     }
 
-    @Override
     public String getSecretKey() {
         return this.otpSecretKey;
     }
@@ -107,7 +106,6 @@ public class User implements TOTPUserDetails {
         return this;
     }
 
-    @Override
     public void setRole(RoleAuthority tempAuthentication) {
         this.authorities.add(tempAuthentication);
     }

@@ -1,7 +1,6 @@
 package com.example.auth.config.security;
 
 import com.example.auth.config.security.exception.WrongPasswordException;
-import com.warrenstrange.googleauth.IGoogleAuthenticator;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -20,34 +19,11 @@ public class ExtensibleUserDetailsAuthenticationProvider extends AbstractUserDet
     private PasswordEncoder passwordEncoder;
     @Setter
     private UserDetailsService userDetailsService;
-    @Setter
-    private IGoogleAuthenticator googleAuthenticator;
-
 
     @Override
     public void additionalAuthenticationChecks(
             UserDetails userDetails, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
         log.info("additionalAuthenticationChecks: username={}", userDetails.getUsername());
-//        if (authentication.getCredentials() == null) {
-//            log.error("Authentication failed: no credential provided");
-//            throw new BadCredentialsException("No credentials");
-//        }
-
-//        String credentialsPassword = authentication.getCredentials().toString();
-//        if (!passwordEncoder.matches(credentialsPassword, userDetails.getPassword())) {
-//            log.error("Authentication failed: password does not match stored value");
-//            throw new WrongPasswordException("password does not match stored value");
-//        }
-    }
-
-    @Override
-    public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
-        log.info("retrieveUser : {}", username);
-        TOTPUserDetails retrieveUser = (TOTPUserDetails) userDetailsService.loadUserByUsername(username);
-
-        if (retrieveUser == null) {
-            throw new InternalAuthenticationServiceException("UserDetails is null");
-        }
 
         if (authentication.getCredentials() == null) {
             log.error("Authentication failed: no credential provided");
@@ -55,9 +31,19 @@ public class ExtensibleUserDetailsAuthenticationProvider extends AbstractUserDet
         }
 
         String credentialsPassword = authentication.getCredentials().toString();
-        if (!passwordEncoder.matches(credentialsPassword, retrieveUser.getPassword())) {
+        if (!passwordEncoder.matches(credentialsPassword, userDetails.getPassword())) {
             log.error("Authentication failed: password does not match stored value");
             throw new WrongPasswordException("password does not match stored value");
+        }
+    }
+
+    @Override
+    public UserDetails retrieveUser(String username, UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        log.info("retrieveUser : {}", username);
+        UserDetails retrieveUser = userDetailsService.loadUserByUsername(username);
+
+        if (retrieveUser == null) {
+            throw new InternalAuthenticationServiceException("UserDetails is null");
         }
 
         return retrieveUser;

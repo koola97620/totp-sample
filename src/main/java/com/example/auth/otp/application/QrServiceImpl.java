@@ -1,11 +1,11 @@
 package com.example.auth.otp.application;
 
-import com.example.auth.user.domain.User;
-import com.example.auth.user.domain.UserRepository;
 import com.example.auth.otp.dto.QrInfo;
 import com.example.auth.otp.dto.QrLoginRequest;
 import com.example.auth.otp.exception.InvalidVerificationCodeException;
 import com.example.auth.otp.exception.OtpLoginFailedException;
+import com.example.auth.user.domain.User;
+import com.example.auth.user.domain.UserRepository;
 import com.warrenstrange.googleauth.GoogleAuthenticatorKey;
 import com.warrenstrange.googleauth.GoogleAuthenticatorQRGenerator;
 import com.warrenstrange.googleauth.IGoogleAuthenticator;

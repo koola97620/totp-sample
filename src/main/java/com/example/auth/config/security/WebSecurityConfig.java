@@ -41,7 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()//.authenticationDetailsSource(new TOTPWebAuthenticationDetailsSource())
                         .loginPage("/login")//.defaultSuccessUrl("/")
-                            .successHandler(new LoginSuccesaHandler())
+                            .successHandler(new ExtensibleAuthenticationSuccessHandler())
                             .failureUrl("/login?error").failureHandler(new ExtensibleAuthenticationFailureHandler()).permitAll()
                 .and()
                     .logout()
@@ -58,7 +58,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         ExtensibleUserDetailsAuthenticationProvider provider = new ExtensibleUserDetailsAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
         provider.setUserDetailsService(userService);
-        provider.setGoogleAuthenticator(googleAuthenticator());
         return provider;
     }
 }
