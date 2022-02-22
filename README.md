@@ -17,3 +17,4 @@
 - https://creampuffy.tistory.com/89
 - https://medium.com/geekculture/few-ways-to-generate-qr-code-using-javascript-54b6b5220c4f
 - https://developer-rooney.tistory.com/182
+- https://github.com/google/google-authenticator/wiki/Key-Uri-Format
