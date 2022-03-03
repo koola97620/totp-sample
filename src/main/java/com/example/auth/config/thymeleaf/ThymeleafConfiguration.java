@@ -8,7 +8,6 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @Configuration
@@ -39,20 +38,20 @@ public class ThymeleafConfiguration {
         return resolver;
     }
 
-    @Bean
-    public SpringTemplateEngine emailTemplateEngine() {
-        SpringTemplateEngine engine = new SpringTemplateEngine();
-        engine.setTemplateResolver(emailTemplateResolver());
-        return engine;
-    }
+//    @Bean
+//    public SpringTemplateEngine emailTemplateEngine() {
+//        SpringTemplateEngine engine = new SpringTemplateEngine();
+//        engine.setTemplateResolver(emailTemplateResolver());
+//        return engine;
+//    }
 
-    @Bean
-    public ClassLoaderTemplateResolver emailTemplateResolver() {
-        ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver();
-        emailTemplateResolver.setPrefix("/mails/");
-        emailTemplateResolver.setSuffix(".html");
-        emailTemplateResolver.setTemplateMode(TemplateMode.HTML);
-        emailTemplateResolver.setCharacterEncoding("UTF-8");
-        return emailTemplateResolver;
-    }
+//    @Bean
+//    public ClassLoaderTemplateResolver emailTemplateResolver() {
+//        ClassLoaderTemplateResolver emailTemplateResolver = new ClassLoaderTemplateResolver();
+//        emailTemplateResolver.setPrefix("/mails/");
+//        emailTemplateResolver.setSuffix(".html");
+//        emailTemplateResolver.setTemplateMode(TemplateMode.HTML);
+//        emailTemplateResolver.setCharacterEncoding("UTF-8");
+//        return emailTemplateResolver;
+//    }
 }
